@@ -1,6 +1,6 @@
 # Contributers
 
-## (Hxabyt3)[https://github.com/Hxabyt3]
+##Hxabyt3
 Main Developer
-## (MrBlackReal)[https://github.com/MrBlackReal]
+##MrBlackReal
 Mental Supporter :), provided TimeUtils
