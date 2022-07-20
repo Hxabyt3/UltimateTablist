@@ -15,11 +15,6 @@ public final class UltimateTablist extends JavaPlugin {
 
     public String HEADER;
     public String FOOTER;
-    public String TIME;
-    public String SECONDS;
-    public String DATE;
-    public String WEEKDAY;
-    public String MONTH;
 
     @Override
     public void onEnable() {
