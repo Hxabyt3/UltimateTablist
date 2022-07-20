@@ -1,0 +1,6 @@
+name: UltimateTablist
+version: 1.1
+main: de.h3xabyt3.ultimatetablist.UltimateTablist
+api-version: 1.18
+authors: [ H3xabyt3 ]
+description: The easiest way to make a custom Tablist with all sorts of functions!
