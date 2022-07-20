@@ -1,3 +1,16 @@
+# UltimateTablist
+[![State Of The Art Shitcode](https://img.shields.io/static/v1?label=State-of-the-art&message=Shitcode&color=7B5804)](https://github.com/trekhleb/state-of-the-art-shitcode)
+
+## Issues
+Any issues with the plugin should be reported to me [here](https://discord.gg/invite/Kx3PtwEzVJ).
+
+## Additional libraries
+### Spigot
+Spigot is a lib to create Minecraft plugins if you want more information check out the [Documentation](https://hub.spigotmc.org/).
+
+## Liscense
+This Project is subject to the MIT-Liscense(LISCENSE).
+
 Copyright © 2022 H3xabyt3
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software
