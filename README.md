@@ -9,7 +9,7 @@ Any issues with the plugin should be reported to me [here](https://discord.gg/in
 Spigot is a lib to create Minecraft plugins if you want more information check out the [Documentation](https://hub.spigotmc.org/).
 
 ## Liscense
-This Project is subject to the MIT-Liscense(LISCENSE).
+This Project is subject to the MIT-Liscense.
 
 Copyright © 2022 H3xabyt3
 
