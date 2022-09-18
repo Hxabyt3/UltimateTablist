@@ -2,7 +2,7 @@
 [![State Of The Art Shitcode](https://img.shields.io/static/v1?label=State-of-the-art&message=Shitcode&color=7B5804)](https://github.com/trekhleb/state-of-the-art-shitcode)
 
 ## Issues
-Any issues with the plugin should be reported to me [here](https://discord.gg/invite/Kx3PtwEzVJ).
+Any issues with the plugin should be reported to me [here](https://discord.gg/vKpWwT3fKu).
 
 ## Additional libraries
 ### Spigot
