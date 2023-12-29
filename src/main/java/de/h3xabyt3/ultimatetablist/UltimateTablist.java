@@ -9,6 +9,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.TimeZone;
+import java.util.UUID;
 
 public final class UltimateTablist extends JavaPlugin {
 
@@ -16,6 +19,8 @@ public final class UltimateTablist extends JavaPlugin {
 
     public String HEADER;
     public String FOOTER;
+
+    public HashMap<UUID, String> PlayerIPs = new HashMap<UUID, String>();
 
     public IPinfo ipInfo;
 
@@ -32,9 +37,7 @@ public final class UltimateTablist extends JavaPlugin {
         HEADER = UltimateTablist.instance.getConfig().getString("header");
         FOOTER = UltimateTablist.instance.getConfig().getString("footer");
         if (HEADER.contains("{time}") || (HEADER.contains("{seconds}") || (HEADER.contains("{date}")) || (HEADER.contains("{weekday}")) || (HEADER.contains("{month}")) ||FOOTER.contains("{time}") || (FOOTER.contains("{seconds}") || (FOOTER.contains("{date}")) || (FOOTER.contains("{weekday}")) || (FOOTER.contains("{month}"))|| FOOTER.contains("{tps}")))) {
-            Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> {
-                run();
-            }, 0, 20);
+            Bukkit.getScheduler().runTaskTimerAsynchronously(this, this::run, 0, 20);
         }
     }
 
