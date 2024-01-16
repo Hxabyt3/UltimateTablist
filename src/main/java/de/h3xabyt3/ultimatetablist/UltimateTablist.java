@@ -1,44 +1,40 @@
 package de.h3xabyt3.ultimatetablist;
 
-import io.ipinfo.api.IPinfo;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
-import java.util.TimeZone;
 import java.util.UUID;
 
 public final class UltimateTablist extends JavaPlugin {
 
     public static UltimateTablist instance;
-
     public String HEADER;
     public String FOOTER;
-
-    public HashMap<UUID, String> PlayerIPs = new HashMap<UUID, String>();
-
-    public IPinfo ipInfo;
-
+    public boolean LOCALHOST;
+    public HashMap<UUID, String> PlayerTimezones= new HashMap<>();
     @Override
     public void onEnable() {
-        ipInfo = new IPinfo.Builder()
-                .setToken("4fd0a3dc68a736")
-                .build();
-        instance = this;
+        //----Instance----
+        UltimateTablist.instance = this;
+        //----Events----
         getServer().getPluginManager().registerEvents(new PlayerJoinEvent(), this);
         getServer().getPluginManager().registerEvents(new PlayerLeaveEvent(), this);
+        //----Create Config----
         createCustomConfig();
         saveDefaultConfig();
-        HEADER = UltimateTablist.instance.getConfig().getString("header");
-        FOOTER = UltimateTablist.instance.getConfig().getString("footer");
-        if (HEADER.contains("{time}") || (HEADER.contains("{seconds}") || (HEADER.contains("{date}")) || (HEADER.contains("{weekday}")) || (HEADER.contains("{month}")) ||FOOTER.contains("{time}") || (FOOTER.contains("{seconds}") || (FOOTER.contains("{date}")) || (FOOTER.contains("{weekday}")) || (FOOTER.contains("{month}"))|| FOOTER.contains("{tps}")))) {
-            Bukkit.getScheduler().runTaskTimerAsynchronously(this, this::run, 0, 20);
-        }
+        //----Load Config----
+        if (UltimateTablist.instance.getConfig().getString("header") != null) {HEADER = UltimateTablist.instance.getConfig().getString("header");}
+        if (UltimateTablist.instance.getConfig().getString("footer") != null) {FOOTER = UltimateTablist.instance.getConfig().getString("footer");}
+        LOCALHOST = UltimateTablist.instance.getConfig().getBoolean("localhost");
+        //----Scheduler----
+        if (HEADER != null && FOOTER != null) {Bukkit.getScheduler().runTaskTimerAsynchronously(this, this::run, 0, 20);}
+        //----Console Advertisement----
+        Ad();
     }
 
     private void run() {
@@ -58,5 +54,13 @@ public final class UltimateTablist extends JavaPlugin {
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
+    }
+
+    private void Ad(){
+        System.out.println("-");
+        System.out.println("-");
+        System.out.println("Consider leaving a review for UltimateTablist at https://www.planetminecraft.com/mod/ultimatetablist/ or at https://www.spigotmc.org/resources/ultimatetablist.103538/");
+        System.out.println("-");
+        System.out.println("-");
     }
 }

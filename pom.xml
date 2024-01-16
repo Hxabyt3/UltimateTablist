@@ -12,7 +12,7 @@
     <name>UltimateTablist</name>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -71,10 +71,17 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>io.ipinfo</groupId>
-            <artifactId>ipinfo-api</artifactId>
-            <version>3.0.0</version>
-            <scope>compile</scope>
+            <groupId>co.ipdata.client</groupId>
+            <artifactId>ipdata-java-client</artifactId>
+            <version>0.2.0</version>
+            <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20231013</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 </project>
