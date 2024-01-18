@@ -8,25 +8,14 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public class PlayerJoinEvent implements Listener {
     @EventHandler
     public void onPlayerJoin(org.bukkit.event.player.PlayerJoinEvent event) {
         Player player = event.getPlayer();
         try {
-            UltimateTablist.instance.PlayerTimezones.put(player.getUniqueId(), /*String.valueOf(player.getAddress())*/ getZoneFormIpAddress("93.204.0.72"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Tablist.SetTablist();
-        try {
-            System.out.println(getZoneFormIpAddress("93.204.0.72"));
-            System.out.println(getZoneFormIpAddress("185.35.50.4"));
-            System.out.println(getZoneFormIpAddress("219.118.201.119"));
-            System.out.println(TimeUtil.getTime(getZoneFormIpAddress("93.204.0.72")));
-            System.out.println(TimeUtil.getTime(getZoneFormIpAddress("185.35.50.4")));
-            System.out.println(TimeUtil.getTime(getZoneFormIpAddress("219.118.201.119")));
+            UltimateTablist.instance.PlayerTimezones.put(player.getUniqueId(), (UltimateTablist.instance.LOCALHOST || UltimateTablist.instance.IPDATAKEY == null ? UltimateTablist.instance.TIMEZONE : getZoneFromIpAddress(String.valueOf(player.getAddress()), UltimateTablist.instance.IPDATAKEY)));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -41,11 +30,14 @@ public class PlayerJoinEvent implements Listener {
         return sb.toString();
     }
 
-    public String getZoneFormIpAddress(String ip) throws IOException {
+    public String getZoneFromIpAddress(String ip, String apikey) throws IOException {
         String zone = "inconnu";
         try {
-            JSONObject json = readJsonFromUrl("https://api.ipdata.co/"+ip+"?api-key=116c250e011ab9e1c2071848989f87e33a4fa2bb3f2ed16d5c10cda9");
-            zone = json.get("country_name")+"/"+json.get("city");
+            JSONObject json = readJsonFromUrl("https://api.ipdata.co/"+ip+"?api-key=" + apikey);
+            zone = String.valueOf(json.get("time_zone")).split("\"") [7];
+            System.out.println(zone);
+            zone = zone.split("\"") [0];
+            System.out.println(zone);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -57,10 +49,9 @@ public class PlayerJoinEvent implements Listener {
         InputStream is = new URL(url).openStream();
 
         try {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             String jsonText = readAll(rd);
-            JSONObject json = new JSONObject(jsonText);
-            return json;
+            return new JSONObject(jsonText);
         } finally {
             is.close();
         }

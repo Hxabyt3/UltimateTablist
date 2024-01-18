@@ -1,43 +1,32 @@
 package de.h3xabyt3.ultimatetablist;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 public class TimeUtil {
     public static String getTime(String Zone) {
-        Date date = new Date();
-        DateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone(Zone));
-        return simpleDateFormat.format(date);
+        return getTimeofTimeZone(ZoneId.of(Zone), "HH.mm").replace(".", ":");
     }
 
     public static String getSeconds(String Zone) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ss");
-        Date result = new Date();
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone(Zone));
-        return simpleDateFormat.format(result);
+        return getTimeofTimeZone(ZoneId.of(Zone), "ss");
     }
 
     public static String getDate(String Zone) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        Date result = new Date();
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone(Zone));
-        return simpleDateFormat.format(result);
+        return getTimeofTimeZone(ZoneId.of(Zone), "dd.MM.yyyy");
     }
 
     public static String getWeekDay(String Zone) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE");
-        Date result = new Date();
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone(Zone));
-        return simpleDateFormat.format(result);
+        return getTimeofTimeZone(ZoneId.of(Zone), "EEE");
     }
 
     public static String getMonth(String Zone) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM");
-        Date result = new Date();
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone(Zone));
-        return simpleDateFormat.format(result);
+        return getTimeofTimeZone(ZoneId.of(Zone), "MMMM");
+    }
+
+    private static String getTimeofTimeZone(ZoneId Zone, String format) {
+        ZonedDateTime zonedDateTime = ZonedDateTime.now(Zone);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+        return zonedDateTime.format(formatter);
     }
 }

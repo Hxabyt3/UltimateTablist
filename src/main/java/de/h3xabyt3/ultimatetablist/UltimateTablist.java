@@ -15,6 +15,8 @@ public final class UltimateTablist extends JavaPlugin {
     public static UltimateTablist instance;
     public String HEADER;
     public String FOOTER;
+    public String IPDATAKEY;
+    public String TIMEZONE;
     public boolean LOCALHOST;
     public HashMap<UUID, String> PlayerTimezones= new HashMap<>();
     @Override
@@ -30,17 +32,18 @@ public final class UltimateTablist extends JavaPlugin {
         //----Load Config----
         if (UltimateTablist.instance.getConfig().getString("header") != null) {HEADER = UltimateTablist.instance.getConfig().getString("header");}
         if (UltimateTablist.instance.getConfig().getString("footer") != null) {FOOTER = UltimateTablist.instance.getConfig().getString("footer");}
+        if (UltimateTablist.instance.getConfig().getString("ipdatakey") != null) {IPDATAKEY = UltimateTablist.instance.getConfig().getString("ipdatakey");}
+        if (UltimateTablist.instance.getConfig().getString("timezone") != null) {TIMEZONE = UltimateTablist.instance.getConfig().getString("timezone");}
         LOCALHOST = UltimateTablist.instance.getConfig().getBoolean("localhost");
         //----Scheduler----
         if (HEADER != null && FOOTER != null) {Bukkit.getScheduler().runTaskTimerAsynchronously(this, this::run, 0, 20);}
-        //----Console Advertisement----
-        Ad();
     }
 
     private void run() {
         Tablist.SetTablist();
     }
 
+    //----Create Default Config----
     private void createCustomConfig() {
         File customConfigFile = new File(getDataFolder(), "config.yml");
         if (!customConfigFile.exists()) {
@@ -54,13 +57,5 @@ public final class UltimateTablist extends JavaPlugin {
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
-    }
-
-    private void Ad(){
-        System.out.println("-");
-        System.out.println("-");
-        System.out.println("Consider leaving a review for UltimateTablist at https://www.planetminecraft.com/mod/ultimatetablist/ or at https://www.spigotmc.org/resources/ultimatetablist.103538/");
-        System.out.println("-");
-        System.out.println("-");
     }
 }

@@ -1,6 +1,10 @@
 header: "&5Ultimate&9Tablist\n &aWelcome to &6Server.com\n{date} {time}:{seconds}"
-footer: "&aCheck out our store &6>> &aStore.com\n&aTps: &6{tps}\n&aOnline: &6{players}"
-localhost: false
+footer: "&aCheck out our store &6>> &aStore.com\n&aOnline: &6{players}"
+localhost: true
+ipdatakey: ""
+###IF EITHER OF THE TWO ABOVE ARE FALSE OR NOT FILLED IN YOU NEED TO SET THIS
+timezone: "Europe/Berlin"
+#You can use this to find your Timezone: https://www.timeanddate.com/time/map/
 #Use the normal Minecraft color codes with & before them.
 #minecraft.tools/en/color-code.php
 #Use \n to insert a linebreak.
@@ -12,3 +16,7 @@ localhost: false
 #Use {month} to insert the current month.
 #IMPORTANT
 #Using the time features may result in a small performance loss, so use them wisely.
+
+#IPDATAKEY EXPLANATION
+#In there you can put your ipdata.co key, to make the time displayed to be set for each player according to thier time
+#Zone, if you don't want to use this, !!!LEAVE IT BLANK!!!;
