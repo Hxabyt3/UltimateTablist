@@ -1,5 +1,6 @@
 package de.h3xabyt3.ultimatetablist;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,15 +10,19 @@ import org.json.JSONObject;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.time.zone.ZoneRulesException;
 
 public class PlayerJoinEvent implements Listener {
     @EventHandler
     public void onPlayerJoin(org.bukkit.event.player.PlayerJoinEvent event) {
         Player player = event.getPlayer();
         try {
-            UltimateTablist.instance.PlayerTimezones.put(player.getUniqueId(), (UltimateTablist.instance.LOCALHOST || UltimateTablist.instance.IPDATAKEY == null ? UltimateTablist.instance.TIMEZONE : getZoneFromIpAddress(String.valueOf(player.getAddress()), UltimateTablist.instance.IPDATAKEY)));
+            if (UltimateTablist.instance.USEPLAYERTIMEZONES) UltimateTablist.instance.PlayerTimezones.put(player.getUniqueId(), getZoneFromIpAddress(String.valueOf(player.getAddress()), UltimateTablist.instance.IPDATAKEY));
+            if (!UltimateTablist.instance.USEPLAYERTIMEZONES) UltimateTablist.instance.PlayerTimezones.put(player.getUniqueId(), UltimateTablist.instance.TIMEZONE);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("--------------------!!!IF THIS SHOWS UP, YOU MISSPELLED YOUR APIKEY!!!--------------------");
+            Bukkit.getScheduler().cancelTasks(UltimateTablist.instance);
+            UltimateTablist.instance.getServer().getPluginManager().disablePlugin(UltimateTablist.instance);
         }
     }
 
@@ -30,17 +35,13 @@ public class PlayerJoinEvent implements Listener {
         return sb.toString();
     }
 
-    public String getZoneFromIpAddress(String ip, String apikey) throws IOException {
-        String zone = "inconnu";
-        try {
-            JSONObject json = readJsonFromUrl("https://api.ipdata.co/"+ip+"?api-key=" + apikey);
-            zone = String.valueOf(json.get("time_zone")).split("\"") [7];
-            System.out.println(zone);
-            zone = zone.split("\"") [0];
-            System.out.println(zone);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public String getZoneFromIpAddress(String ip, String apikey) throws IOException{
+        String zone;
+        JSONObject json = readJsonFromUrl("https://api.ipdata.co/"+ip+"?api-key=" + apikey);
+        zone = String.valueOf(json.get("time_zone")).split("\"") [7];
+        System.out.println(zone);
+        zone = zone.split("\"") [0];
+        System.out.println(zone);
         return zone;
     }
 
