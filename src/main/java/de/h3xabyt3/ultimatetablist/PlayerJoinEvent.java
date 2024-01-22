@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.time.zone.ZoneRulesException;
 
 public class PlayerJoinEvent implements Listener {
     @EventHandler
