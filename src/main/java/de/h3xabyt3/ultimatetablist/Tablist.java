@@ -35,7 +35,7 @@ public class Tablist {
                         //Set header, replace "{month} with month MMMM
                         .replace("{month}", TimeUtil.getMonth(UltimateTablist.instance.PlayerTimezones.get(player.getUniqueId()))))));
             } catch (Exception e) {
-                //Catch possible exception, most likeley means the timezone was misspelled, printStackTrace(); just in case
+                //Catch possible exception, most likely means the timezone was misspelled, printStackTrace(); just in case
                 System.out.println(ChatColor.RED + "--------------------!!!IF THIS SHOWS UP, YOU MISSPELLED YOUR TIMEZONE!!!--------------------");
                 e.printStackTrace();
                 //Disable scheduler

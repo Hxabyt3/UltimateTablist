@@ -14,48 +14,55 @@ import java.util.Objects;
 import java.util.UUID;
 
 public final class UltimateTablist extends JavaPlugin {
-
+    //Create the instance
     public static UltimateTablist instance;
+    //Create all the config variables
     public String HEADER;
     public String FOOTER;
     public String IPDATAKEY;
     public String TIMEZONE;
     public boolean LOCALHOST;
+    //Boolean for time system, to tell whether to use the api or not
     public boolean USEPLAYERTIMEZONES;
+    //Hashmap to save the players UUID + Timezone
     public HashMap<UUID, String> PlayerTimezones= new HashMap<>();
     @Override
     public void onEnable() {
-        //----Instance----
+        //Set the instance
         UltimateTablist.instance = this;
-        //----Events----
+        //Register events
         getServer().getPluginManager().registerEvents(new PlayerJoinEvent(), this);
         getServer().getPluginManager().registerEvents(new PlayerLeaveEvent(), this);
-        //----Create Config----
+        //If the plugin has been installed for the first time, these functions will create the default config
         createCustomConfig();
         saveDefaultConfig();
-        //----Load Config----
+        //Null-check and set all the config variables
         if (UltimateTablist.instance.getConfig().getString("header") != null) {HEADER = UltimateTablist.instance.getConfig().getString("header");}
         if (UltimateTablist.instance.getConfig().getString("footer") != null) {FOOTER = UltimateTablist.instance.getConfig().getString("footer");}
         if (UltimateTablist.instance.getConfig().getString("ipdatakey") != null) {IPDATAKEY = UltimateTablist.instance.getConfig().getString("ipdatakey");}
         if (UltimateTablist.instance.getConfig().getString("timezone") != null) {TIMEZONE = UltimateTablist.instance.getConfig().getString("timezone");}
+        //Not providing this boolean, will result in a bunch of errors, which is why this is tried specifically
         try {
             LOCALHOST = UltimateTablist.instance.getConfig().getBoolean("localhost");
         } catch (NullPointerException Ignored) {
+            //Error messsage
             System.out.println("Configuration Error: You must specifiy wether the Server is a LocalHost or not.");
+            //Disable plugin
             getServer().getPluginManager().disablePlugin(this);
         }
+        //Check if the plugin should run off a timezone or an APIKey
         USEPLAYERTIMEZONES = usePlayerTimezones(IPDATAKEY, TIMEZONE, LOCALHOST);
-        //----Kick Players----
+        //Kick all players, to avoid NullPointerExceptions
         kickallPlayers();
-        //----Scheduler----
+        //Set the scheduler to set the tablist every tick
         if (HEADER != null && FOOTER != null) {Bukkit.getScheduler().runTaskTimerAsynchronously(this, this::run, 0, 20);}
     }
-
+    //Scheduler to set the tablist every tick
     private void run() {
         Tablist.SetTablist();
     }
 
-    //----Create Default Config----
+    //Creates the default config if no config is existent
     private void createCustomConfig() {
         File customConfigFile = new File(getDataFolder(), "config.yml");
         if (!customConfigFile.exists()) {
