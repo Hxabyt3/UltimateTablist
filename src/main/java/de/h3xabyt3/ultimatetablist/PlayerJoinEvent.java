@@ -14,17 +14,23 @@ import java.nio.charset.StandardCharsets;
 public class PlayerJoinEvent implements Listener {
     @EventHandler
     public void onPlayerJoin(org.bukkit.event.player.PlayerJoinEvent event) {
+        //Save player to player variable
         Player player = event.getPlayer();
+        //Check whether to use the ip of the player to get the timezone or to use the timezone in the config
         try {
             if (UltimateTablist.instance.USEPLAYERTIMEZONES) UltimateTablist.instance.PlayerTimezones.put(player.getUniqueId(), getZoneFromIpAddress(String.valueOf(player.getAddress()), UltimateTablist.instance.IPDATAKEY));
             if (!UltimateTablist.instance.USEPLAYERTIMEZONES) UltimateTablist.instance.PlayerTimezones.put(player.getUniqueId(), UltimateTablist.instance.TIMEZONE);
         } catch (Exception e) {
+            //Exception can really only be wrong apikey
             System.out.println("--------------------!!!IF THIS SHOWS UP, YOU MISSPELLED YOUR APIKEY!!!--------------------");
+            //Turn off scheduler
             Bukkit.getScheduler().cancelTasks(UltimateTablist.instance);
+            //Disable plugin
             UltimateTablist.instance.getServer().getPluginManager().disablePlugin(UltimateTablist.instance);
         }
     }
 
+    //I don't know how the code below works, I copied it
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;

@@ -76,6 +76,7 @@ public final class UltimateTablist extends JavaPlugin {
             e.printStackTrace();
         }
     }
+    //Returns whether to use the players IP to get their timezone or to use the one from the config
     public boolean usePlayerTimezones(String IPDATAKEY, String TIMEZONE, Boolean LOCALHOST) {
         if (LOCALHOST) {
             if (Objects.equals(TIMEZONE, "")) {
