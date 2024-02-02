@@ -4,9 +4,6 @@ header: "&5Ultimate&9Tablist\n &aWelcome to &6Server.com\n{date} {time}:{seconds
 #In here, add what you want to be displayed in the footer of the tablist.
 footer: "&aCheck out our store &6>> &aStore.com\n&aOnline: &6{players}"
 
-#Select wether you are running this Plugin on a LocalHost (true) or not (false)
-localhost: true
-
 #Input your ipdata.co API-Key if you want to use Player specific Timezones. Otherwise, leave this blank.
 ipdatakey: ""
 

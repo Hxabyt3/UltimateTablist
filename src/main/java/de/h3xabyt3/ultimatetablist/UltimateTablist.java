@@ -41,15 +41,7 @@ public final class UltimateTablist extends JavaPlugin {
         if (UltimateTablist.instance.getConfig().getString("footer") != null) {FOOTER = UltimateTablist.instance.getConfig().getString("footer");}
         if (UltimateTablist.instance.getConfig().getString("ipdatakey") != null) {IPDATAKEY = UltimateTablist.instance.getConfig().getString("ipdatakey");}
         if (UltimateTablist.instance.getConfig().getString("timezone") != null) {TIMEZONE = UltimateTablist.instance.getConfig().getString("timezone");}
-        //Not providing this boolean, will result in a bunch of errors, which is why this is tried specifically
-        try {
-            LOCALHOST = UltimateTablist.instance.getConfig().getBoolean("localhost");
-        } catch (NullPointerException Ignored) {
-            //Error messsage
-            System.out.println("Configuration Error: You must specifiy wether the Server is a LocalHost or not.");
-            //Disable plugin
-            getServer().getPluginManager().disablePlugin(this);
-        }
+        LOCALHOST = isLocalhostServer();
         //Check if the plugin should run off a timezone or an APIKey
         USEPLAYERTIMEZONES = usePlayerTimezones(IPDATAKEY, TIMEZONE, LOCALHOST);
         //Kick all players, to avoid NullPointerExceptions
@@ -99,6 +91,18 @@ public final class UltimateTablist extends JavaPlugin {
     private void kickallPlayers() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.kickPlayer(ChatColor.translateAlternateColorCodes('§', "§6[§5Ultimate§9Tablist§6] §fKicked all players to avoid errors."));
+        }
+    }
+
+    private boolean isLocalhostServer() {
+        try {
+            Bukkit.getServer().getIp();
+            java.net.InetAddress serverAddress = java.net.InetAddress.getByName(Bukkit.getServer().getIp());
+
+            return serverAddress.isLoopbackAddress() || serverAddress.getHostAddress().equals("127.0.0.1");
+        } catch (java.net.UnknownHostException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }
