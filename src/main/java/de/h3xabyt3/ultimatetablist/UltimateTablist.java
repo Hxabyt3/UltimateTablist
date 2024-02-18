@@ -43,7 +43,7 @@ public final class UltimateTablist extends JavaPlugin {
         if (UltimateTablist.instance.getConfig().getString("timezone") != null) {TIMEZONE = UltimateTablist.instance.getConfig().getString("timezone");}
         LOCALHOST = isLocalhostServer();
         //Check if the plugin should run off a timezone or an APIKey
-        USEPLAYERTIMEZONES = usePlayerTimezones(IPDATAKEY, TIMEZONE, LOCALHOST);
+        if (!LOCALHOST) {USEPLAYERTIMEZONES = usePlayerTimezones(IPDATAKEY, TIMEZONE;}
         //Kick all players, to avoid NullPointerExceptions
         kickallPlayers();
         //Set the scheduler to set the tablist every tick
@@ -53,7 +53,6 @@ public final class UltimateTablist extends JavaPlugin {
     private void run() {
         Tablist.SetTablist();
     }
-
     //Creates the default config if no config is existent
     private void createCustomConfig() {
         File customConfigFile = new File(getDataFolder(), "config.yml");
@@ -69,8 +68,16 @@ public final class UltimateTablist extends JavaPlugin {
         }
     }
     //Returns whether to use the players IP to get their timezone or to use the one from the config
-    public boolean usePlayerTimezones(String IPDATAKEY, String TIMEZONE, Boolean LOCALHOST) {
-        if (LOCALHOST) {
+    public boolean usePlayerTimezones(String IPDATAKEY, String TIMEZONE) {
+        if (Objects.equals(TIMEZONE, "") && Objects.equals(IPDATAKEY, "")) {
+            System.out.println("-\n-\nConfiguration Error: You must specify a Timezone or an IpdataKey.\n-\n-");
+            getServer().getPluginManager().disablePlugin(this);
+            return false;
+        }
+        if (!Objects.equals(IPDATAKEY, "")) return true;
+        return false;
+
+        /*        if (LOCALHOST) {
             if (Objects.equals(TIMEZONE, "")) {
                 System.out.println("-\n-\nConfiguration Error: You must specify a Timezone when using a LocalHost.\n-\n-");
                 getServer().getPluginManager().disablePlugin(this);
@@ -85,7 +92,7 @@ public final class UltimateTablist extends JavaPlugin {
             if (!Objects.equals(IPDATAKEY, "")) return true;
             if (!Objects.equals(TIMEZONE, "")) return false;
         }
-        return true;
+        return true; */
     }
     
     private void kickallPlayers() {
