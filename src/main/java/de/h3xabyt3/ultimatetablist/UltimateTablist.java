@@ -43,7 +43,7 @@ public final class UltimateTablist extends JavaPlugin {
         if (UltimateTablist.instance.getConfig().getString("timezone") != null) {TIMEZONE = UltimateTablist.instance.getConfig().getString("timezone");}
         LOCALHOST = isLocalhostServer();
         //Check if the plugin should run off a timezone or an APIKey
-        if (!LOCALHOST) {USEPLAYERTIMEZONES = usePlayerTimezones(IPDATAKEY, TIMEZONE;}
+        if (!LOCALHOST) {USEPLAYERTIMEZONES = usePlayerTimezones(IPDATAKEY, TIMEZONE);}
         //Kick all players, to avoid NullPointerExceptions
         kickallPlayers();
         //Set the scheduler to set the tablist every tick
