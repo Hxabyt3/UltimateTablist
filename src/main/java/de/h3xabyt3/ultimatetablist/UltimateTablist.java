@@ -64,7 +64,7 @@ public final class UltimateTablist extends JavaPlugin {
         try {
             customConfig.load(customConfigFile);
         } catch (IOException | InvalidConfigurationException e) {
-            e.printStackTrace();
+            System.out.println("-\n-\nConfig Error: Syntax errors in the config, if this issue persists, delete the config.");
         }
     }
     //Returns whether to use the players IP to get their timezone or to use the one from the config
