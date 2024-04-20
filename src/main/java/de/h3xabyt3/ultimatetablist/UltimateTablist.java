@@ -37,17 +37,27 @@ public final class UltimateTablist extends JavaPlugin {
         createCustomConfig();
         saveDefaultConfig();
         //Null-check and set all the config variables
-        if (UltimateTablist.instance.getConfig().getString("header") != null) {HEADER = UltimateTablist.instance.getConfig().getString("header");}
-        if (UltimateTablist.instance.getConfig().getString("footer") != null) {FOOTER = UltimateTablist.instance.getConfig().getString("footer");}
-        if (UltimateTablist.instance.getConfig().getString("ipdatakey") != null) {IPDATAKEY = UltimateTablist.instance.getConfig().getString("ipdatakey");}
-        if (UltimateTablist.instance.getConfig().getString("timezone") != null) {TIMEZONE = UltimateTablist.instance.getConfig().getString("timezone");}
+        if (UltimateTablist.instance.getConfig().getString("header") != null) {
+            HEADER = UltimateTablist.instance.getConfig().getString("header");
+        }
+        if (UltimateTablist.instance.getConfig().getString("footer") != null) {
+            FOOTER = UltimateTablist.instance.getConfig().getString("footer");
+        }
+        if (UltimateTablist.instance.getConfig().getString("ipdatakey") != null) {
+            IPDATAKEY = UltimateTablist.instance.getConfig().getString("ipdatakey");
+        }
+        if (UltimateTablist.instance.getConfig().getString("timezone") != null) {
+            TIMEZONE = UltimateTablist.instance.getConfig().getString("timezone");
+        }
         LOCALHOST = isLocalhostServer();
         //Check if the plugin should run off a timezone or an APIKey
         if (!LOCALHOST) {USEPLAYERTIMEZONES = usePlayerTimezones(IPDATAKEY, TIMEZONE);}
         //Kick all players, to avoid NullPointerExceptions
         kickallPlayers();
         //Set the scheduler to set the tablist every tick
-        if (HEADER != null && FOOTER != null) {Bukkit.getScheduler().runTaskTimerAsynchronously(this, this::run, 0, 20);}
+        if (HEADER != null && FOOTER != null) {
+            Bukkit.getScheduler().runTaskTimerAsynchronously(this, this::run, 0, 20);
+        }
     }
     //Scheduler to set the tablist every tick
     private void run() {
@@ -74,8 +84,7 @@ public final class UltimateTablist extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
             return false;
         }
-        if (!Objects.equals(IPDATAKEY, "")) return true;
-        return false;
+        return !Objects.equals(IPDATAKEY, "");
 
         /*        if (LOCALHOST) {
             if (Objects.equals(TIMEZONE, "")) {

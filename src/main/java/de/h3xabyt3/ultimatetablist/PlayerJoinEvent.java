@@ -18,8 +18,11 @@ public class PlayerJoinEvent implements Listener {
         Player player = event.getPlayer();
         //Check whether to use the ip of the player to get the timezone or to use the timezone in the config
         try {
-            if (UltimateTablist.instance.USEPLAYERTIMEZONES) UltimateTablist.instance.PlayerTimezones.put(player.getUniqueId(), getZoneFromIpAddress(String.valueOf(player.getAddress()), UltimateTablist.instance.IPDATAKEY));
-            if (!UltimateTablist.instance.USEPLAYERTIMEZONES) UltimateTablist.instance.PlayerTimezones.put(player.getUniqueId(), UltimateTablist.instance.TIMEZONE);
+            if (UltimateTablist.instance.USEPLAYERTIMEZONES) {
+                UltimateTablist.instance.PlayerTimezones.put(player.getUniqueId(), getZoneFromIpAddress(String.valueOf(player.getAddress()), UltimateTablist.instance.IPDATAKEY));
+            } else {
+                UltimateTablist.instance.PlayerTimezones.put(player.getUniqueId(), UltimateTablist.instance.TIMEZONE)
+            }
         } catch (Exception e) {
             //Exception can really only be wrong apikey
             System.out.println("--------------------!!!IF THIS SHOWS UP, YOU MISSPELLED YOUR APIKEY!!!--------------------");
@@ -30,7 +33,7 @@ public class PlayerJoinEvent implements Listener {
         }
     }
 
-    //I don't know how the code below works, I copied it
+    //I don't know how the code below works
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
